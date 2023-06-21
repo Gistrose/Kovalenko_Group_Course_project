@@ -25,6 +25,7 @@ namespace Kovalenko_Group_Course_projec
         {
             MajorObject = new MajorWork();
             MajorObject.SetTime();
+            MajorObject.Modify = false;
 
             About A = new About(0);
             A.tAbout.Start();
@@ -32,6 +33,7 @@ namespace Kovalenko_Group_Course_projec
 
             MajorObject = new MajorWork();
             this.Mode = true;
+
         }
 
         private void tClock_Tick(object sender, EventArgs e)
@@ -104,7 +106,8 @@ namespace Kovalenko_Group_Course_projec
         {
             if (sfdSave.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show(sfdSave.FileName);
+                MajorObject.WriteSaveFileName(sfdSave.FileName);
+                MajorObject.SaveToFile(); 
             }
         }
 
