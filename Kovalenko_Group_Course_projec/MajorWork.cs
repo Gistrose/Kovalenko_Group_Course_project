@@ -8,6 +8,16 @@ namespace Kovalenko_Group_Course_projec
 {
     class MajorWork
     {
+        private string SaveFileName;
+        private string OpenFileName;
+        public void WriteSaveFileName(string S)
+        {
+            this.SaveFileName = S;
+        }
+        public void WriteOpenFileName(string S)
+        {
+            this.OpenFileName = S;
+        }
         private System.DateTime TimeBegin;
         private string Data;
         private string Result;

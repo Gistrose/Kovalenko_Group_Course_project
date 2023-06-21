@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace Kovalenko_Group_Course_projec
 {
@@ -24,9 +25,9 @@ namespace Kovalenko_Group_Course_projec
         {
             MajorObject = new MajorWork();
             MajorObject.SetTime();
-           
-            About A = new About();
-            A.tAbout.Start ();
+
+            About A = new About(0);
+            A.tAbout.Start();
             A.ShowDialog();
 
             MajorObject = new MajorWork();
@@ -48,6 +49,7 @@ namespace Kovalenko_Group_Course_projec
                 tClock.Start();
                 bStart.Text = "Стоп";
                 this.Mode = false;
+                пускToolStripMenuItem.Text = "Стоп";
 
             }
             else
@@ -57,8 +59,9 @@ namespace Kovalenko_Group_Course_projec
                 bStart.Text = "Пуск";
                 this.Mode = true;
                 MajorObject.Write(tbInput.Text);
-                MajorObject.Task ();
+                MajorObject.Task();
                 label1.Text = MajorObject.Read();
+                пускToolStripMenuItem.Text = "Старт";
             }
         }
 
@@ -70,7 +73,8 @@ namespace Kovalenko_Group_Course_projec
             {
                 return;
             }
-            else {
+            else
+            {
                 tClock.Stop();
                 MessageBox.Show("неправильний символ", "помилка");
                 tClock.Start();
@@ -83,6 +87,59 @@ namespace Kovalenko_Group_Course_projec
             string s;
             s = (System.DateTime.Now - MajorObject.GetTime()).ToString();
             MessageBox.Show(s, "Час роботи програми");
+        }
+
+        private void вихідToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void проПрограммуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About A = new About(0);
+            A.ShowDialog();
+        }
+
+        private void зберегтиЯкToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sfdSave.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show(sfdSave.FileName);
+            }
+        }
+
+        private void відкритиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ofdOpen.ShowDialog() == DialogResult.OK)
+                {
+                MessageBox.Show(ofdOpen.FileName);
+                }
+        }
+
+        private void проНакопичувачіToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string[] disks = (System.IO.Directory.GetLogicalDrives()); 
+            string disk = "";
+            for (int i = 0; i < disks.Length; i++)
+            {
+                try
+                {
+
+                    System.IO.DriveInfo D = new System.IO.DriveInfo(disks[i]);
+                    double totalbytes = D.TotalSize;
+                    double freebytes = D.TotalFreeSpace;
+                    double tGbytes = totalbytes / Math.Pow(2, 30);
+                    double fGbytes = freebytes / Math.Pow(2, 30);
+                    disk += (D.Name + tGbytes + "-" + fGbytes +"Gb"+ (char)13); ;
+                    
+                }
+                catch
+                {
+                    disk += disks[i] + "- не готовий" + (char)13;
+                }
+            }
+            
+            MessageBox.Show(disk, "Накопичувачі");
         }
     }
 }

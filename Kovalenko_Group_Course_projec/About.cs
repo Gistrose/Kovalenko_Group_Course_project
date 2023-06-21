@@ -12,7 +12,7 @@ namespace Kovalenko_Group_Course_projec
 {
     public partial class About : Form
     {
-        public About()
+        public About(int v)
         {
             InitializeComponent();
         }
