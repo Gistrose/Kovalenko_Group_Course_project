@@ -116,7 +116,8 @@ namespace Kovalenko_Group_Course_projec
         {
             if (ofdOpen.ShowDialog() == DialogResult.OK)
                 {
-                MessageBox.Show(ofdOpen.FileName);
+                MajorObject.WriteOpenFileName(ofdOpen.FileName);
+                MajorObject.ReadFromFile(dgwOpen);
                 }
         }
 
@@ -161,6 +162,7 @@ namespace Kovalenko_Group_Course_projec
             MajorObject.NewRec();
             tbInput.Clear();// очистити вміст тексту
             label1.Text = "";
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -169,6 +171,17 @@ namespace Kovalenko_Group_Course_projec
                 if (MessageBox.Show("Дані не були збережені. Продовжити вихід?", "УВАГА",
                 MessageBoxButtons.YesNo) == DialogResult.No)
                     e.Cancel = true;
+        }
+
+
+        private void bSearch_Click_1(object sender, EventArgs e)
+        {
+            MajorObject.Find(tbSearch.Text);
+        }
+
+        private void dgwOpen_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
